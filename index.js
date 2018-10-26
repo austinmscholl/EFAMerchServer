@@ -12,8 +12,8 @@ sequelize.sync();
 
 app.use(bodyParser.json());
 
-app.use(require('./middleware/headers'));
-app.use(require('./middleware/validate-session'));
+// app.use(require('./middleware/headers'));
+// app.use(require('./middleware/validate-session'));
 
 app.use('/', user);
 
