@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 let user = require('./controllers/usercontroller');
+=======
+var user = require('./controllers/usercontroller');
+>>>>>>> master
 let item = require('./controllers/itemcontroller')
 
 const express = require('express');

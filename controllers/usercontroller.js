@@ -4,8 +4,7 @@ var sequelize = require('../db');
 var User = sequelize.import('../models/user');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
-
-const validateSession = require('../middleware/validate-session');
+require('dotenv').config()
 
 
 router.post('/signup', function(req, res) {
@@ -14,13 +13,15 @@ router.post('/signup', function(req, res) {
     var firstname = req.body.firstname;
     var lastname = req.body.lastname;
 
-    User.create({
+    User
+        .create({
         email: email,
         passwordhash: bcrypt.hashSync(password, 10),
         firstname: firstname,
         lastname: lastname
-    }).then(
-        function createSuccess(user) {
+        })
+        .then(
+            (user) => {
             var token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn:
             60*60*24});
             res.json({
