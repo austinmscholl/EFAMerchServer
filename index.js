@@ -1,6 +1,5 @@
-require('dotenv').config();
-
 var user = require('./controllers/usercontroller');
+let item = require('./controllers/itemcontroller')
 
 const express = require('express');
 const app = express();
@@ -14,5 +13,6 @@ app.use(bodyParser.json());
 app.use(require('./middleware/headers'))
 
 app.use('/', user);
+app.use('/item', item)
 
 app.listen(5000,() => console.log('app is listening on port 5000...bitches'));
