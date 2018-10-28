@@ -15,6 +15,10 @@ module.exports = function (sequelize, DataTypes) {
         lastname: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+        role: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     })
 }

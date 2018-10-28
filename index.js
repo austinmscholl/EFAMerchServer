@@ -8,7 +8,7 @@ const app = express();
 var sequelize = require('./db');
 var bodyParser = require('body-parser');
 
-sequelize.sync();
+sequelize.sync(); //{force: true}
 
 app.use(bodyParser.json());
 
