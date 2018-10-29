@@ -13,6 +13,7 @@ router.post('/signup', function(req, res) {
     let password = req.body.password;
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;
+    let role = 'role';
 
     User
         .create({
@@ -24,7 +25,7 @@ router.post('/signup', function(req, res) {
         })
         .then(
             User => User.createCart({
-                itemId: req.body.itemId
+                userId: User.id
             })
         )
         .then(
