@@ -1,27 +1,26 @@
 let express = require('express')
 let router = express.Router()
-let Item = require('../db').import('../models/item')
-// let validateSession = require('../middleware/validate-session')
-// Item.sync({force:true})
+let sequelize = require('../db')
+let UserCart = sequelize.import('../models/cart')
+validateSession = require('../middleware/validate-session')
+// let ItemModel = sequelize.import('../models/item')
 
-router.post('/addcart', (req, res) => {
-    Cart   
-        .create({
-            itemId: req.body.itemId
-        })
-        .then(item=> res.json(item))
+router.post('/', validateSession, (req, res) => {
+    UserCart.create({
+        userId: req.user.id
+    })
+    .then(data => res.json(data))
 })
 
-router.get('/getcart', (req, res) => {
-    Item
-        .findAll()
+router.get('/', validateSession, (req, res) => {
+    UserCart.findAll({
+        include: ['items']
+    })
         .then(data => res.json(data))
 })
 
-router.delete('/:cartid', (req, res) => {
-    Item
-        .destroy({where:{id: req.params.id}})
-        .then(item => res.json(item))
-})
+// router.get('/', (req, res) => {
+//     res.send('hey from cart')
+// })
 
 module.exports = router
