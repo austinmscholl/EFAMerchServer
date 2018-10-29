@@ -5,6 +5,7 @@ var User = sequelize.import('../models/user');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 require('dotenv').config()
+let Cart = require('../models/cart');
 
 
 router.post('/signup', function(req, res) {
@@ -19,8 +20,14 @@ router.post('/signup', function(req, res) {
         email: email,
         passwordhash: bcrypt.hashSync(password, 10),
         firstname: firstname,
-        lastname: lastname
+        lastname: lastname,
+        role: role
         })
+        .then(
+            User => User.createCart({
+                itemId: req.body.itemId
+            })
+        )
         .then(
             (user) => {
             var token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn:
