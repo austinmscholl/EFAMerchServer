@@ -1,5 +1,6 @@
+
 module.exports = function (sequelize, DataTypes) {
-    return sequelize.define('user', {
+    let User =  sequelize.define('user', {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -16,6 +17,19 @@ module.exports = function (sequelize, DataTypes) {
         lastname: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+        role: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     })
+
+    let Cart = require('../models/cart');
+
+
+    User.associate = function() {
+        User.hasOne(Cart);
+    }
+
+    return User;
 }
