@@ -6,7 +6,7 @@ const app = express();
 var sequelize = require('./db');
 var bodyParser = require('body-parser');
 
-sequelize.sync();
+// sequelize.sync();
 
 app.use(bodyParser.json());
 
@@ -14,5 +14,7 @@ app.use(require('./middleware/headers'))
 
 app.use('/', user);
 app.use('/item', item)
+
+require('./associations.js')
 
 app.listen(5000,() => console.log('app is listening on port 5000...bitches'));
