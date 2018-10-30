@@ -1,7 +1,7 @@
 var user = require('./controllers/usercontroller');
 let item = require('./controllers/itemcontroller')
 let cart = require('./controllers/cartcontroller')
-// let cartitem = require('./controllers/cartitemcontroller')
+let cartitem = require('./controllers/cartitemcontroller')
 
 const express = require('express');
 const app = express();
@@ -15,7 +15,7 @@ app.use(require('./middleware/headers'))
 app.use('/user', user);
 app.use('/item', item)
 app.use('/cart', cart)
-// app.use('/cartitem', cartitem)
+app.use('/cartitem', cartitem)
 
 require('./associations.js')
 
