@@ -8,6 +8,7 @@ router.post('/', (req, res) => {
     UserCart.create({})
     .then(data => res.json(data))
     .catch(err => res.send(err))
+
 })
 
 router.get('/:id', validateSession, (req, res) => {
@@ -30,14 +31,35 @@ router.put('/:id', validateSession, (req, res) => {
             cart.setItems(req.params.id)
         })
         .then(res.send('success'))
+
 })
 
-<<<<<<< HEAD
-module.exports = router
-=======
+// router.get('/:id', validateSession, (req, res) => {
+//     UserCart.findOne({
+//         where: {userId: req.user.id},
+//         include: [{all:true}]
+//     })
+//     .then(cart => {
+//         res.json(cart)
+//     })
+//     .catch(err => res.send(err))
+
+// })
+
+
+router.put('/:id', validateSession, (req, res) => {
+    UserCart.findOne({
+        where:{userId: req.user.id}
+    })
+        .then(cart => {
+            cart.setItems(req.params.id)
+        })
+        .then(res.send('success'))
+})
+
+
 // router.get('/', (req, res) => {
 //     res.send('hey from cart')
 // })
 
 module.exports = router
->>>>>>> development
