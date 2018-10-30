@@ -5,11 +5,17 @@ let UserCart = sequelize.import('../models/cart')
 validateSession = require('../middleware/validate-session')
 // let ItemModel = sequelize.import('../models/item')
 
-router.post('/', validateSession, (req, res) => {
-    UserCart.create({
-        userId: req.user.id
-    })
+router.post('/', (req, res) => {
+    UserCart.create({})
     .then(data => res.json(data))
+})
+
+router.put('/:id', validateSession, (req, res) => {
+    UserCart.findOne({where: {id: req.params.id}})
+    // .then(cart => {
+    //     cart.setUser(req.user.id)
+    // })
+    .then(res => res.send('success'))
 })
 
 router.get('/', validateSession, (req, res) => {
