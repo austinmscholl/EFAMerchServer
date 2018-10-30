@@ -14,8 +14,8 @@ router.post('/:cart_id/:item_id', (req, res) => {
 
 router.get('/:id', (req, res) => {
     CartItem.findAll({
-        where: {cartId: req.params.id}, 
-        include: ['item']
+        where: {cartId: req.params.id} 
+        // include: ['item']
     })
         .then(data => res.json(data))
 })

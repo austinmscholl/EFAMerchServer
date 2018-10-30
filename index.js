@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 app.use(require('./middleware/headers'))
 
-app.use('/user', user);
+app.use('/auth', user);
 app.use('/item', item)
 app.use('/cart', cart)
 app.use('/cartitem', cartitem)
