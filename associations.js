@@ -6,10 +6,8 @@ let CartItem = sequelize.import('./models/cartitem')
 
 UserModel.hasOne(CartModel)
 CartModel.belongsTo(UserModel)
-// CartModel.hasMany(ItemModel)
-ItemModel.belongsToMany(CartModel, {through: CartItem})
-// CartItem.hasMany(ItemModel)
-// ItemModel.belongsTo(CartItem)
+CartModel.belongsToMany(ItemModel, {as: 'items', through: CartItem})
+
 
 
 sequelize.sync().then(console.log('Database and tables created'))
