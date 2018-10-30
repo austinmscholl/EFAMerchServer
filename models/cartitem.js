@@ -1,4 +1,4 @@
 module.exports = function (sequelize, DataTypes){
-    return sequelize.define('cartItem', {
+    return sequelize.define('cartitem', {
 })
 }
