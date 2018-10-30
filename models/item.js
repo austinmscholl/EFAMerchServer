@@ -4,8 +4,8 @@ module.exports = function (sequelize, DataTypes){
             type: DataTypes.STRING,
             allowNull: false
         },
-        catergory:{
-            type: Datatypes.STRING,
+        category:{
+            type: DataTypes.STRING,
             allowNull:false
         },
         itemPrice: {
