@@ -20,8 +20,10 @@ router.post('/signup', function(req, res) {
         firstname: firstname,
         lastname: lastname
         })
+        
         .then(
-            (user) => {
+            user => {
+            user.createCart({userId: user.id})
             let token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn:
             60*60*24});
             res.json({
@@ -29,12 +31,12 @@ router.post('/signup', function(req, res) {
                 message: 'created',
                 sessionToken: token
             });
+        })
         },
         function createError(err) {
             res.send(500, err.message);
         }
     );
-});
 
 router.post('/login', function(req, res) {
     User.findOne( { where: { email: req.body.email } } ).then(
