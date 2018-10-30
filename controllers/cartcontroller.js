@@ -33,33 +33,4 @@ router.put('/:id', validateSession, (req, res) => {
         .then(res.send('success'))
 
 })
-
-// router.get('/:id', validateSession, (req, res) => {
-//     UserCart.findOne({
-//         where: {userId: req.user.id},
-//         include: [{all:true}]
-//     })
-//     .then(cart => {
-//         res.json(cart)
-//     })
-//     .catch(err => res.send(err))
-
-// })
-
-
-router.put('/:id', validateSession, (req, res) => {
-    UserCart.findOne({
-        where:{userId: req.user.id}
-    })
-        .then(cart => {
-            cart.setItems(req.params.id)
-        })
-        .then(res.send('success'))
-})
-
-
-// router.get('/', (req, res) => {
-//     res.send('hey from cart')
-// })
-
 module.exports = router
