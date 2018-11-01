@@ -13,7 +13,7 @@ router.post('/signup', function(req, res) {
     let password = req.body.password;
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;
-    let role = 'role';
+    let role = 'admin';
 
     User
         .create({

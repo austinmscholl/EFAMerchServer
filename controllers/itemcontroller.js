@@ -33,6 +33,7 @@ router.post('/additem', parser.single('itemImg'), (req, res) => {
             itemName: req.body.itemName,
             itemPrice: req.body.itemPrice,
             category: req.body.category,
+            gender: req.body.gender,
             itemDescription: req.body.itemDescription,
             itemImg: req.file.url
         })
