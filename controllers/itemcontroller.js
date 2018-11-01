@@ -46,6 +46,18 @@ router.get('/getitems', (req, res) => {
         .then(data => res.json(data))
 })
 
+router.get('/:gender', (req, res) => {
+    Item
+        .findAll( {where: {gender:req.params.gender }})
+        .then(item => res.json(item))
+})
+
+router.get('/:gender/:category', (req, res) => {
+    Item
+        .findAll( {where: {gender:req.params.gender, category:req.params.category }})
+        .then(item => res.json(item))
+})
+
 router.put('/:id', (req, res) => {
     Item
         .update(req.body, {where: {id:req.params.id}})
