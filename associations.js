@@ -10,4 +10,6 @@ CartModel.belongsToMany(ItemModel, {as: 'items', through: CartItem})
 
 
 
+
 sequelize.sync().then(console.log('Database and tables created'))
+

@@ -48,7 +48,7 @@ router.get('/getitems', (req, res) => {
 
 router.get('/:gender', (req, res) => {
     Item
-        .findAll( {where: {gender:req.params.gender }})
+        .findAll( {where: {gender:[req.params.gender, 'neutral'] }})
         .then(item => res.json(item))
 })
 
