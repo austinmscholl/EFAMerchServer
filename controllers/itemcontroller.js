@@ -46,6 +46,14 @@ router.get('/getitems', (req, res) => {
         .then(data => res.json(data))
 })
 
+router.get('/getaccessories', (req, res) => {
+    Item
+        .findAll({where: {category: 'accessories'}})
+        .then(items => res.json(items))
+})
+   
+
+
 router.get('/:gender', (req, res) => {
     Item
         .findAll( {where: {gender:[req.params.gender, 'neutral'] }})
