@@ -24,12 +24,6 @@ module.exports = function (sequelize, DataTypes) {
         }
     })
 
-    let Cart = require('../models/cart');
-
-
-    User.associate = function() {
-        User.hasOne(Cart);
-    }
 
     return User;
 }
