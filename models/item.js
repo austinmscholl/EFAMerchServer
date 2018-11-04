@@ -4,8 +4,12 @@ module.exports = function (sequelize, DataTypes){
             type: DataTypes.STRING,
             allowNull: false
         },
-        catergory:{
-            type: Datatypes.STRING,
+        category:{
+            type: DataTypes.STRING,
+            allowNull:false
+        },
+        gender:{
+            type:DataTypes.STRING,
             allowNull:false
         },
         itemPrice: {
@@ -17,7 +21,7 @@ module.exports = function (sequelize, DataTypes){
             allowNull:false
         },
         itemImg:{
-            type: DataTypes.BLOB,
+            type: DataTypes.STRING,
             allowNull:false
         }
     })
