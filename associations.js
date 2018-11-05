@@ -7,6 +7,7 @@ let CartItem = sequelize.import('./models/cartitem')
 UserModel.hasOne(CartModel)
 CartModel.belongsTo(UserModel)
 CartModel.belongsToMany(ItemModel, {as: 'items', through: CartItem})
+// CartModel.hasMany(ItemModel)
 
 
 
