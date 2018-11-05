@@ -5,7 +5,7 @@ let Item = require('../db').import('../models/item')
 let multer = require('multer')
 let cloudinary = require('cloudinary')
 let cloudinaryStorage = require('multer-storage-cloudinary')
-// let validateSession = require('../middleware/validate-session')
+let validateSession = require('../middleware/validate-session')
 // Item.sync({force:true})
 
 cloudinary.config({
@@ -26,7 +26,7 @@ let parser = multer({storage:storage})
 //     console.log(req.file.url)
 // })
 
-router.post('/additem', parser.single('itemImg'), (req, res) => {
+router.post('/additem', validateSession, parser.single('itemImg'), (req, res) => {
     console.log(req.file)
     Item   
         .create({
@@ -52,8 +52,6 @@ router.get('/getaccessories', (req, res) => {
         .then(items => res.json(items))
 })
    
-
-
 router.get('/:gender', (req, res) => {
     Item
         .findAll( {where: {gender:[req.params.gender, 'neutral'] }})
@@ -66,14 +64,14 @@ router.get('/:gender/:category', (req, res) => {
         .then(item => res.json(item))
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', validateSession, (req, res) => {
     Item
         .update(req.body, {where: {id:req.params.id}})
         .then(item => res.json(item))
 
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', validateSession, (req, res) => {
     Item
         .destroy({where:{id: req.params.id}})
         .then(item => res.json(item))
