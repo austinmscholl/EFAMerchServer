@@ -5,8 +5,9 @@ let Item = require('../db').import('../models/item')
 let multer = require('multer')
 let cloudinary = require('cloudinary')
 let cloudinaryStorage = require('multer-storage-cloudinary')
+
 let validateSession = require('../middleware/validate-session')
-// Item.sync({force:true})
+
 
 cloudinary.config({
     cloud_name: process.env.CLOUDNAME,
@@ -22,9 +23,6 @@ let storage = cloudinaryStorage({
 
 let parser = multer({storage:storage})
 
-// router.post('/addpic', parser.single('image'), (req,res) => {
-//     console.log(req.file.url)
-// })
 
 router.post('/additem', validateSession, parser.single('itemImg'), (req, res) => {
     console.log(req.file)
@@ -42,7 +40,7 @@ router.post('/additem', validateSession, parser.single('itemImg'), (req, res) =>
 
 router.get('/getitems', (req, res) => {
     Item
-        .findAll()
+        .findAll({include:['stock']})
         .then(data => res.json(data))
 })
 
@@ -71,7 +69,25 @@ router.put('/:id', validateSession, (req, res) => {
 
 })
 
-router.delete('/:id', validateSession, (req, res) => {
+
+router.put('/addstock/:id', (req, res) => {
+    let quantity = req.body.quantity
+    let size = req.body.size
+    
+    Item 
+        .findOne({where:{id: req.params.id}})
+        .then(item => {
+            item.createStock({
+                itemId: item.id,
+                quantity:quantity,
+                size:size
+            })
+        })
+})
+
+
+router.delete('/:id', (req, res) => {
+
     Item
         .destroy({where:{id: req.params.id}})
         .then(item => res.json(item))
