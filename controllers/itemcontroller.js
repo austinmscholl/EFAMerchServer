@@ -5,13 +5,8 @@ let Item = require('../db').import('../models/item')
 let multer = require('multer')
 let cloudinary = require('cloudinary')
 let cloudinaryStorage = require('multer-storage-cloudinary')
-<<<<<<< HEAD
-// Item.sync({force:true})
-=======
 
 let validateSession = require('../middleware/validate-session')
-
->>>>>>> develop
 
 cloudinary.config({
     cloud_name: process.env.CLOUDNAME,
@@ -66,13 +61,12 @@ router.get('/:gender/:category', (req, res) => {
         .then(item => res.json(item))
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', validateSession, (req, res) => {
     Item
         .update(req.body, {where: {id:req.params.id}})
         .then(item => res.json(item))
 
 })
-
 
 router.put('/addstock/:id', (req, res) => {
     let quantity = req.body.quantity
