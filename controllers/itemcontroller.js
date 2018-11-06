@@ -8,7 +8,6 @@ let cloudinaryStorage = require('multer-storage-cloudinary')
 
 let validateSession = require('../middleware/validate-session')
 
-
 cloudinary.config({
     cloud_name: process.env.CLOUDNAME,
     api_key: process.env.CLOUDAPI,
@@ -68,7 +67,6 @@ router.put('/:id', validateSession, (req, res) => {
         .then(item => res.json(item))
 
 })
-
 
 router.put('/addstock/:id', (req, res) => {
     let quantity = req.body.quantity
