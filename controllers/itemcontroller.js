@@ -6,6 +6,9 @@ let multer = require('multer')
 let cloudinary = require('cloudinary')
 let cloudinaryStorage = require('multer-storage-cloudinary')
 
+let validateSession = require('../middleware/validate-session')
+
+
 cloudinary.config({
     cloud_name: process.env.CLOUDNAME,
     api_key: process.env.CLOUDAPI,
@@ -21,7 +24,7 @@ let storage = cloudinaryStorage({
 let parser = multer({storage:storage})
 
 
-router.post('/additem', parser.single('itemImg'), (req, res) => {
+router.post('/additem', validateSession, parser.single('itemImg'), (req, res) => {
     console.log(req.file)
     Item   
         .create({
@@ -47,8 +50,6 @@ router.get('/getaccessories', (req, res) => {
         .then(items => res.json(items))
 })
    
-
-
 router.get('/:gender', (req, res) => {
     Item
         .findAll( {where: {gender:[req.params.gender, 'neutral'] }})
@@ -61,12 +62,13 @@ router.get('/:gender/:category', (req, res) => {
         .then(item => res.json(item))
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', validateSession, (req, res) => {
     Item
         .update(req.body, {where: {id:req.params.id}})
         .then(item => res.json(item))
 
 })
+
 
 router.put('/addstock/:id', (req, res) => {
     let quantity = req.body.quantity
@@ -85,6 +87,7 @@ router.put('/addstock/:id', (req, res) => {
 
 
 router.delete('/:id', (req, res) => {
+
     Item
         .destroy({where:{id: req.params.id}})
         .then(item => res.json(item))
