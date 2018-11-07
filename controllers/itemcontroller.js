@@ -67,15 +67,9 @@ router.get('/oneitem/:id', (req,res) => {
         .then(item => res.json(item))
 })
 
-router.put('/oneitem/:id', (req, res) => {
+router.put('/updateone/:id', (req, res) => {
     Item
         .update(req.body, {where: {id:req.params.id}})
-        .then(item => res.json(item))
-})
-
-router.get('/oneitem/:id', (req, res) => {
-    Item
-        .findOne({include:[{all:true}]}, {where: {id:req.params.id}})
         .then(item => res.json(item))
 })
 
