@@ -16,7 +16,6 @@ router.get('/', validateSession, (req, res) => {
     .catch(err => res.send(err))
 })
 
-
 router.put('/:id', validateSession, (req, res) => {
     console.log(req.user.id)
     
@@ -27,6 +26,18 @@ router.put('/:id', validateSession, (req, res) => {
             cart.addItems(req.params.id)
         })
         .then(res.send('success'))
-
 })
+
+router.delete('/delete/:id', validateSession, (req, res) => {
+    console.log(req.user.id)
+
+    UserCart.findOne({
+        where:{userId: req.user.id}
+    })
+        .then(cart => {
+            cart.removeItem(req.params.id)
+        })
+        .then(res.send('success'))
+})
+
 module.exports = router
