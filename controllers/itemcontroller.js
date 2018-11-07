@@ -49,15 +49,21 @@ router.get('/getaccessories', (req, res) => {
         .then(items => res.json(items))
 })
    
-router.get('/:gender', (req, res) => {
+router.get('/gender/:gender', (req, res) => {
     Item
         .findAll( {where: {gender:[req.params.gender, 'neutral'] }})
         .then(item => res.json(item))
 })
 
-router.get('/:gender/:category', (req, res) => {
+router.get('/genderCat/:gender/:category', (req, res) => {
     Item
         .findAll( {where: {gender:req.params.gender, category:req.params.category }})
+        .then(item => res.json(item))
+})
+
+router.get('/oneitem/:id', (req,res) => {
+    Item
+        .findOne({where:{id:req.params.id}})
         .then(item => res.json(item))
 })
 
