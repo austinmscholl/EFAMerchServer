@@ -61,13 +61,13 @@ router.get('/:gender/:category', (req, res) => {
         .then(item => res.json(item))
 })
 
-router.put('/:id', (req, res) => {
+router.put('/oneitem/:id', (req, res) => {
     Item
         .update(req.body, {where: {id:req.params.id}})
         .then(item => res.json(item))
 })
 
-router.get('/one/item/:id', (req, res) => {
+router.get('/oneitem/:id', (req, res) => {
     Item
         .findOne({include:[{all:true}]}, {where: {id:req.params.id}})
         .then(item => res.json(item))
