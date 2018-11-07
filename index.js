@@ -20,4 +20,4 @@ app.use('/stock', stock)
 
 require('./associations.js')
 
-app.listen(5000,() => console.log('app is listening on port 5000...bitches'));
+app.listen(5000,() => console.log('app is listening on port 5000..'));
