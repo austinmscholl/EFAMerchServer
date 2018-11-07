@@ -4,15 +4,9 @@ let sequelize = require('../db')
 let UserCart = sequelize.import('../models/cart')
 validateSession = require('../middleware/validate-session')
 
-router.post('/', (req, res) => {
-    UserCart.create({})
-    .then(data => res.json(data))
-    .catch(err => res.send(err))
+router.get('/', validateSession, (req, res) => {
 
-})
-
-router.get('/:id', validateSession, (req, res) => {
-    UserCart.findOne({
+        UserCart.findOne({
         where: {userId: req.user.id},
         include: [{all:true}]
     })
@@ -22,15 +16,28 @@ router.get('/:id', validateSession, (req, res) => {
     .catch(err => res.send(err))
 })
 
-
 router.put('/:id', validateSession, (req, res) => {
+    console.log(req.user.id)
+    
     UserCart.findOne({
         where:{userId: req.user.id}
     })
         .then(cart => {
-            cart.setItems(req.params.id)
+            cart.addItems(req.params.id)
         })
         .then(res.send('success'))
-
 })
+
+router.delete('/delete/:id', validateSession, (req, res) => {
+    console.log(req.user.id)
+
+    UserCart.findOne({
+        where:{userId: req.user.id}
+    })
+        .then(cart => {
+            cart.removeItem(req.params.id)
+        })
+        .then(res.send('success'))
+})
+
 module.exports = router

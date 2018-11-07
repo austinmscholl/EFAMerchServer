@@ -5,7 +5,6 @@ let User = sequelize.import('../models/user');
 let bcrypt = require('bcryptjs');
 let jwt = require('jsonwebtoken');
 require('dotenv').config()
-let Cart = require('../models/cart');
 
 
 router.post('/signup', function(req, res) {

@@ -5,8 +5,8 @@ let Item = require('../db').import('../models/item')
 let multer = require('multer')
 let cloudinary = require('cloudinary')
 let cloudinaryStorage = require('multer-storage-cloudinary')
+
 // let validateSession = require('../middleware/validate-session')
-// Item.sync({force:true})
 
 cloudinary.config({
     cloud_name: process.env.CLOUDNAME,
@@ -22,9 +22,6 @@ let storage = cloudinaryStorage({
 
 let parser = multer({storage:storage})
 
-// router.post('/addpic', parser.single('image'), (req,res) => {
-//     console.log(req.file.url)
-// })
 
 router.post('/additem', parser.single('itemImg'), (req, res) => {
     console.log(req.file)
@@ -42,7 +39,7 @@ router.post('/additem', parser.single('itemImg'), (req, res) => {
 
 router.get('/getitems', (req, res) => {
     Item
-        .findAll()
+        .findAll({include:['stock']})
         .then(data => res.json(data))
 })
 
@@ -51,26 +48,44 @@ router.get('/getaccessories', (req, res) => {
         .findAll({where: {category: 'accessories'}})
         .then(items => res.json(items))
 })
-   
 
-
-router.get('/:gender', (req, res) => {
+router.get('/gender/:gender', (req, res) => {
     Item
         .findAll( {where: {gender:[req.params.gender, 'neutral'] }})
         .then(item => res.json(item))
 })
 
-router.get('/:gender/:category', (req, res) => {
+router.get('/genderCat/:gender/:category', (req, res) => {
     Item
         .findAll( {where: {gender:req.params.gender, category:req.params.category }})
         .then(item => res.json(item))
 })
 
-router.put('/:id', (req, res) => {
+router.get('/oneitem/:id', (req,res) => {
+    Item
+        .findOne({where:{id:req.params.id}})
+        .then(item => res.json(item))
+})
+
+router.put('/updateone/:id', (req, res) => {
     Item
         .update(req.body, {where: {id:req.params.id}})
         .then(item => res.json(item))
+})
 
+router.put('/addstock/:id', (req, res) => {
+    let quantity = req.body.quantity
+    let size = req.body.size
+    
+    Item 
+        .findOne({where:{id: req.params.id}})
+        .then(item => {
+            item.createStock({
+                itemId: item.id,
+                quantity:quantity,
+                size:size
+            })
+        })
 })
 
 router.delete('/:id', (req, res) => {
