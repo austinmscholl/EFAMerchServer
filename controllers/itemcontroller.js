@@ -67,9 +67,9 @@ router.put('/:id', (req, res) => {
         .then(item => res.json(item))
 })
 
-router.get('/:id', (req, res) => {
+router.get('/one/item/:id', (req, res) => {
     Item
-        .findOne({where: {id:req.params.id}})
+        .findOne({include:[{all:true}]}, {where: {id:req.params.id}})
         .then(item => res.json(item))
 })
 
