@@ -12,7 +12,4 @@ ItemModel.hasMany(StockModel, {as: 'stock'})
 StockModel.belongsTo(ItemModel)
 
 
-
-
 sequelize.sync().then(console.log('Database and tables created'))
-
