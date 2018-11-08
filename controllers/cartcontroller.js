@@ -28,6 +28,21 @@ router.put('/:id', validateSession, (req, res) => {
         .then(res.send('success'))
 })
 
+router.put('/addstock/:id', validateSession, (req, res) =>{
+    UserCart.findOne({
+        where:{userId: req.user.id}
+    })
+        .then(cart => {
+            cart.createCartstock({
+                cartId: cart.id,
+                itemId:req.params.id,
+                size:req.body.size,
+                quantity:req.body.quantity
+            })
+        })
+        .then(data => res.json(data))
+})
+
 router.delete('/delete/:id', validateSession, (req, res) => {
     console.log(req.user.id)
 
