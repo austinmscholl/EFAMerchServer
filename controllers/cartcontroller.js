@@ -23,7 +23,12 @@ router.put('/:id', validateSession, (req, res) => {
         where:{userId: req.user.id}
     })
         .then(cart => {
-            cart.addItems(req.params.id)
+            let itemId = req.params.id
+            cart.addItems({
+                itemId: parseInt(itemId),
+                quantity: parseInt(req.body.quantity),
+                size: req.body.size
+            })
         })
         .then(res.send('success'))
 })
