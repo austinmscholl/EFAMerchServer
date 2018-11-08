@@ -25,7 +25,10 @@ router.post('/signup', function(req, res) {
         
         .then(
             user => {
-            user.createCart({userId: user.id})
+            user.createCart({
+                userId: user.id,
+                ordered:false
+            })
             let token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn:
             60*60*24});
             res.json({

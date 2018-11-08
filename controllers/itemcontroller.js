@@ -63,7 +63,10 @@ router.get('/genderCat/:gender/:category', (req, res) => {
 
 router.get('/oneitem/:id', (req,res) => {
     Item
-        .findOne({where:{id:req.params.id}})
+        .findOne({
+            where:{id:req.params.id},
+            include:['stock']
+        })
         .then(item => res.json(item))
 })
 
@@ -82,12 +85,11 @@ router.put('/addstock/:id', (req, res) => {
         .then(item => {
             item.createStock({
                 itemId: item.id,
-                quantity:quantity,
-                size:size
+                quantity: quantity,
+                size: size
             })
         })
 })
-
 router.delete('/:id', (req, res) => {
     Item
         .destroy({where:{id: req.params.id}})
