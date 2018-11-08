@@ -1,5 +1,0 @@
-let express = require('express')
-let router = express.Router()
-let sequelize = require('../db')
-let CartItem = sequelize.import('../models/cartitem')
-validateSession = require('../middleware/validate-session')
