@@ -82,12 +82,11 @@ router.put('/addstock/:id', (req, res) => {
         .then(item => {
             item.createStock({
                 itemId: item.id,
-                quantity:quantity,
-                size:size
+                quantity: quantity,
+                size: size
             })
         })
 })
-
 router.delete('/:id', (req, res) => {
     Item
         .destroy({where:{id: req.params.id}})
