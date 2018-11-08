@@ -28,6 +28,14 @@ router.put('/:id', validateSession, (req, res) => {
         .then(res.send('success'))
 })
 
+router.put('/order/success', validateSession, (req, res) => {
+    UserCart
+        .update({ordered: true},{
+            where:{userId:req.user.id}
+        })
+        .then(res.send('success'))
+})
+
 router.put('/addstock/:id', validateSession, (req, res) =>{
     UserCart.findOne({
         where:{userId: req.user.id}
@@ -42,6 +50,8 @@ router.put('/addstock/:id', validateSession, (req, res) =>{
         })
         .then(data => res.json(data))
 })
+
+
 
 router.delete('/delete/:id', validateSession, (req, res) => {
     console.log(req.user.id)
