@@ -49,13 +49,9 @@ router.get('/getaccessories', (req, res) => {
         .then(items => res.json(items))
 })
    
-<<<<<<< HEAD
 
 
 router.get('/gender/:gender', (req, res) => {
-=======
-router.get('/:gender', (req, res) => {
->>>>>>> develop
     Item
         .findAll( {where: {gender:[req.params.gender, 'neutral'] }})
         .then(item => res.json(item))
@@ -94,12 +90,11 @@ router.put('/addstock/:id', (req, res) => {
         .then(item => {
             item.createStock({
                 itemId: item.id,
-                quantity:quantity,
-                size:size
+                quantity: quantity,
+                size: size
             })
         })
 })
-
 router.delete('/:id', (req, res) => {
     Item
         .destroy({where:{id: req.params.id}})
