@@ -25,7 +25,8 @@
     "multer-storage-cloudinary": "^2.2.1",
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.37.0"
+    "sequelize": "^4.37.0",
+    "stripe": "^6.13.0"
   },
   "bugs": {
     "url": "https://github.com/austinmscholl/ELAMerchServer/issues"
