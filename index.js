@@ -1,8 +1,9 @@
+require('dotenv').config()
+
 var user = require('./controllers/usercontroller');
 let item = require('./controllers/itemcontroller')
 let cart = require('./controllers/cartcontroller')
-let stock = require('./controllers/stockcontroller')
-
+let stock = require('./controllers/stockcontroller');
 
 const express = require('express');
 const app = express();
@@ -24,4 +25,4 @@ app.get('/api/hello', (req, res) => {
     res.send({ express: 'Hello From Express' });
 })
 
-app.listen(5000,() => console.log('app is listening on port 5000..'));
+app.listen(process.env.PORT,() => console.log('app is listening on port 5000..'));
