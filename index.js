@@ -20,4 +20,8 @@ app.use('/stock', stock)
 
 require('./associations.js')
 
+app.get('/api/hello', (req, res) => {
+    res.send({ express: 'Hello From Express' });
+})
+
 app.listen(5000,() => console.log('app is listening on port 5000..'));
