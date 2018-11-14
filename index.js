@@ -20,6 +20,7 @@ app.use('/item', item)
 app.use('/cart', cart)
 app.use('/cartitem', cartitem)
 
+// sequelize.sync() is in our associations.js file
 require('./associations.js')
 
 app.get('/api/hello', (req, res) => {

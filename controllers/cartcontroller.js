@@ -4,6 +4,11 @@ let sequelize = require('../db')
 let UserCart = sequelize.import('../models/cart')
 validateSession = require('../middleware/validate-session')
 
+/* 
+    used to get a user's cart
+    include: nested: true includes all of the data associated with the items in the cart
+*/
+
 router.get('/', validateSession, (req, res) => {
         UserCart.findOne({
         where: {userId: req.user.id},
@@ -52,6 +57,8 @@ router.get('/', validateSession, (req, res) => {
 //         .then(data => res.json(data))
 // })
 
+
+// used to delete an item from a user's cart
 router.delete('/delete/:id', validateSession, (req, res) => {
     UserCart
         .findOne({where: {userId: req.user.id}})
@@ -60,6 +67,7 @@ router.delete('/delete/:id', validateSession, (req, res) => {
         })
 })
 
+// used to delete a cart
 router.delete('/deletecart', validateSession, (req, res) => {
     console.log(req.user.id)
 

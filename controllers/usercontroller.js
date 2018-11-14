@@ -7,7 +7,9 @@ let jwt = require('jsonwebtoken');
 let validateSession = require('../middleware/validate-session')
 require('dotenv').config()
 
-
+// POSTs a User to the database
+// assigns a role of 'admin' by default
+// uses a magic method to createCart for a User
 router.post('/signup', function(req, res) {
     let email = req.body.email;
     let password = req.body.password;

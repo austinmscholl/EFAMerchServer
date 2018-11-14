@@ -4,6 +4,7 @@ let sequelize = require('../db')
 let CartItem = sequelize.import('../models/cartitem')
 let validateSession = require('../middleware/validate-session')
 
+// adds an item to a user's cart
 router.post('/:cart_id/:item_id', validateSession, (req, res) => {
     CartItem
         .create({
