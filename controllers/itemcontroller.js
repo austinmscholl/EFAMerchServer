@@ -8,21 +8,25 @@ let cloudinaryStorage = require('multer-storage-cloudinary')
 
 // let validateSession = require('../middleware/validate-session')
 
+// configures cloudinary based on values found in our .env file
 cloudinary.config({
     cloud_name: process.env.CLOUDNAME,
     api_key: process.env.CLOUDAPI,
     api_secret: process.env.CLOUDSECRET
 })
 
+// assigns the variable 'storage' the cloudinaryStorage configuration
 let storage = cloudinaryStorage({
     cloudinary: cloudinary,
     folder: "EFAMerchAssets",
     allowedFormats: ['jpg', 'jpeg', 'png']
 })
 
+// uses multer to parse uploaded data
 let parser = multer({storage:storage})
 
-
+// adds an item to the database
+// parser.single parses a single file
 router.post('/additem', parser.single('itemImg'), (req, res) => {
     console.log(req.file)
     Item   
@@ -37,24 +41,28 @@ router.post('/additem', parser.single('itemImg'), (req, res) => {
         .then(item=> res.json(item))
 })
 
+// GETS all items
 router.get('/getitems', (req, res) => {
     Item
-        .findAll({include:['stock']})
+        .findAll()
         .then(data => res.json(data))
 })
 
+// GETS all accessories
 router.get('/getaccessories', (req, res) => {
     Item
         .findAll({where: {category: 'accessories'}})
         .then(items => res.json(items))
 })
 
+// GETS items based on gender, or where gender is 'neutral'
 router.get('/gender/:gender', (req, res) => {
     Item
         .findAll( {where: {gender:[req.params.gender, 'neutral'] }})
         .then(item => res.json(item))
 })
 
+// GETS items based on gender and category
 router.get('/genderCat/:gender/:category', (req, res) => {
     Item
         .findAll( {where: {gender:req.params.gender, category:req.params.category }})
@@ -76,20 +84,6 @@ router.put('/updateone/:id', (req, res) => {
         .then(item => res.json(item))
 })
 
-router.put('/addstock/:id', (req, res) => {
-    let quantity = req.body.quantity
-    let size = req.body.size
-    
-    Item 
-        .findOne({where:{id: req.params.id}})
-        .then(item => {
-            item.createStock({
-                itemId: item.id,
-                quantity: quantity,
-                size: size
-            })
-        })
-})
 router.delete('/:id', (req, res) => {
     Item
         .destroy({where:{id: req.params.id}})
