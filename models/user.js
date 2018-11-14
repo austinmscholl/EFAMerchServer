@@ -21,6 +21,10 @@ module.exports = function (sequelize, DataTypes) {
         role: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        userCart:{
+            type:DataTypes.BOOLEAN,
+            allowNull:false
         }
     })
 
