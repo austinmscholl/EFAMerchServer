@@ -39,7 +39,7 @@ router.post('/additem', parser.single('itemImg'), (req, res) => {
 
 router.get('/getitems', (req, res) => {
     Item
-        .findAll({include:['stock']})
+        .findAll()
         .then(data => res.json(data))
 })
 
