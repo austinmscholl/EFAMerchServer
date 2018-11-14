@@ -1,9 +1,10 @@
 const Sequelize = require('sequelize');
 require('dotenv').config()
 
-const sequelize = new Sequelize(process.env.NAME, 'postgres', process.env.PASS, {
-
-    host: 'localhost',
+const sequelize = new Sequelize(
+    process.env.DATABASE_URL ||
+    `postgresql://postgres:Postgres!Elevenfifty46280@localhost/efamerchServer`
+    , {
     dialect: 'postgres'
 });
 
