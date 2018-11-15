@@ -4,6 +4,12 @@ let sequelize = require('../db')
 let CartItem = sequelize.import('../models/cartitem')
 let validateSession = require('../middleware/validate-session')
 
+router.get('/getcartitem/:id', (req, res) => {
+    CartItem
+        .findOne({where: {id: req.params.id}})
+        .then(item => res.json(item))
+})
+
 router.post('/:cart_id/:item_id', validateSession, (req, res) => {
     CartItem
         .create({
@@ -13,6 +19,12 @@ router.post('/:cart_id/:item_id', validateSession, (req, res) => {
             quantity: req.body.quantity
         })
         .then(item => res.json(item))
+})
+
+router.put('/update/:id', (req, res) => {
+    CartItem
+        .update(req.body, {where: {id: req.params.id}})
+        .then(data => res.json(data))
 })
 
 
