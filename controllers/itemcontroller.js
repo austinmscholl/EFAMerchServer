@@ -72,8 +72,7 @@ router.get('/genderCat/:gender/:category', (req, res) => {
 router.get('/oneitem/:id', (req,res) => {
     Item
         .findOne({
-            where:{id:req.params.id},
-            include:['stock']
+            where:{id:req.params.id}
         })
         .then(item => res.json(item))
 })
