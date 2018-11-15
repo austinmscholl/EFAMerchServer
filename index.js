@@ -18,7 +18,7 @@ app.use(require('./middleware/headers'))
 app.use('/auth', user);
 app.use('/item', item)
 app.use('/cart', cart)
-app.use('/cartitem', cartitem)
+app.use('/usercart', cartitem)
 
 // sequelize.sync() is in our associations.js file
 require('./associations.js')
