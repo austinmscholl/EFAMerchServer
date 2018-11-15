@@ -22,4 +22,4 @@ CartModel.belongsToMany(ItemModel, {as: 'items', through: CartItem})
 // StockModel.belongsTo(CartItem)
 
 
-sequelize.sync().then(console.log('Database and tables created'))
+sequelize.sync({force:true}).then(console.log('Database and tables created'))
