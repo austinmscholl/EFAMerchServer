@@ -3,7 +3,7 @@ This repo represents the back end Web API for an Angular application created by 
 
 View the deployed application (in its current state) at https://efamerch-client.herokuapp.com
 
-Front-end repository: https://github.com/robertpbaxter/EFAMerchClient
+Front-end repository: https://github.com/austinmscholl/EFAMerchClient
 
 ## Features:
 * Implemented using Node.js, Express, PostgreSQL, and Sequelize
